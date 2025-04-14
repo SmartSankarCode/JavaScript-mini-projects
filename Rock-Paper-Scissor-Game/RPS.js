@@ -11,11 +11,30 @@ const score = JSON.parse(localStorage.getItem('score')) ||/*reset()*/ {
 
 updateScore();
 
-function playGame(r_p_s){
+let intervelId;
 
+function autoPlay(){
+    let autoPlay = document.querySelector('.auto-play');
+    if(autoPlay.innerText === 'Auto-Play'){
+        intervelId = setInterval(function(){
+            let autoMove = computerMove();
+            playGame(autoMove);
+        }, 2000);
+        autoPlay.innerHTML = `Stop-Play`;
+    }else if (autoPlay.innerText === 'Stop-Play'){
+        clearInterval(intervelId);
+        autoPlay.innerHTML = `Auto-Play`
+    }    
+}
+
+function computerMove(){
     const R_P_S = ['rock', 'paper', 'scissor'];
     const rand = Math.floor(Math.random() * R_P_S.length);
-    const com = R_P_S[rand];
+    return R_P_S[rand];
+}
+
+function playGame(r_p_s){
+    const com = computerMove();
 
     you.innerHTML =`You: <img height="50px" src="R_P_S_images/${r_p_s}-emoji.png">`;
     computer.innerHTML = `Computer: <img height="50px" src="R_P_S_images/${com}-emoji.png">`
@@ -67,7 +86,7 @@ function reset(){
     result.style.color = '#fff';
 }
 
+
 function updateScore(){
-    scoreboard.innerHTML =`win:<span style="color: green;">${score.win}</span>, lose:<span style="color: red;">${score.lose}</span>, tie:<span style="color: blue;">${score.tie}</span>`;
-    
+    scoreboard.innerHTML =`win:<span style="color: green;">${score.win}</span>, lose:<span style="color: red;">${score.lose}</span>, tie:<span style="color: blue;">${score.tie}</span>`;   
 }
