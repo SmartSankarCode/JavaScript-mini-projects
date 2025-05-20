@@ -1,4 +1,4 @@
-const todoList = JSON.parse(localStorage.getItem('todoList')) || save();
+const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 const todoName = document.querySelector('.todo-input');
 const todoDate = document.querySelector('.todo-date');
 const todoAddBtn = document.querySelector('.todo-add-btn');
